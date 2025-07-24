@@ -39,3 +39,8 @@ model ContactPerson {
   email  String?
   sanggar SanggarTari?
 }
+
+model ForumPost {
+  id String @id @default(uuid())
+  post String
+}
