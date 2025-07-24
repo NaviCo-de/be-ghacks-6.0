@@ -16,13 +16,13 @@ export class AuthService {
     const user = await this.usersService.findByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException('Email salah!')
+      throw new UnauthorizedException('Invalid Email!')
     }
 
     if (await bcrypt.compare(password, user.password)) {
       return user;
     }
-    throw new UnauthorizedException("Password salah!");
+    throw new UnauthorizedException("Wrong Password!");
   }
 
   async login(dto: LoginDto) {
