@@ -14,15 +14,19 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
-    if (user && await bcrypt.compare(password, user.password)) {
+
+    if (!user) {
+      throw new UnauthorizedException('Email salah!')
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
       return user;
     }
-    return null;
+    throw new UnauthorizedException("Password salah!");
   }
 
   async login(dto: LoginDto) {
     const user = await this.validateUser(dto.email, dto.password);
-    if (!user) throw new UnauthorizedException('Invalid credentials');
 
     const payload = { sub: user.id, email: user.email };
     return {
@@ -37,6 +41,7 @@ export class AuthService {
       ...dto,
       password: hash,
     });
+    console.log("hello")
     return { message: 'User created', user };
   }
 }
