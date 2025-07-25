@@ -32,6 +32,8 @@ model SanggarTari {
   foto            String?
   contactPersonId String? @unique
   contactPerson   ContactPerson? @relation(fields: [contactPersonId], references: [id])
+  langitude Float?
+  longitude Float?
 }
 
 model ContactPerson {
