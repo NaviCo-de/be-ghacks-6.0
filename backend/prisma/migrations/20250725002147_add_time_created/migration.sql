@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "ForumPost" ADD COLUMN     "tanggalDibuat" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

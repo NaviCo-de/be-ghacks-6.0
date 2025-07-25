@@ -19,6 +19,7 @@ model User {
   email     String   @unique
   password String
   createdAt DateTime @default(now())
+  posts ForumPost[]
 }
 
 model SanggarTari {
@@ -43,4 +44,7 @@ model ContactPerson {
 model ForumPost {
   id String @id @default(uuid())
   post String
+  tanggalDibuat DateTime @default(now())
+  writerId String?
+  writer User? @relation(fields: [writerId], references: [id])
 }
