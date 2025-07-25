@@ -8,7 +8,6 @@ import { SanggarTari } from '@prisma/client';
 export class SanggarTariService {
   constructor(private prisma: PrismaService) {}
 
-  // --- Fungsi Haversine (menggunakan Math bawaan) ---
   private calculateHaversineDistance(
     lat1: number,
     lon1: number,
@@ -27,7 +26,6 @@ export class SanggarTariService {
     return distance; // Jarak dalam kilometer
   }
 
-  // --- Method untuk mencari sanggar terdekat ---
   async findNearestSanggar(
     query: GetNearestSanggarDto,
   ): Promise<(SanggarTari & { distance?: number })[]> {
@@ -61,30 +59,4 @@ export class SanggarTariService {
 
     return sanggarWithDistance.slice(0, limit);
   }
-
-  // --- Tambahkan kembali method CRUD lainnya yang sudah ada (create, findAll, findOne, update, remove) ---
-  // Contoh:
-  // async create(data: any): Promise<SanggarTari> {
-  //   return this.prisma.sanggarTari.create({ data });
-  // }
-  // async findAll(): Promise<SanggarTari[]> {
-  //   return this.prisma.sanggarTari.findMany();
-  // }
-  // async findOne(id: string): Promise<SanggarTari | null> {
-  //   return this.prisma.sanggarTari.findUnique({ where: { id } });
-  // }
-  // async update(id: string, data: any): Promise<SanggarTari> {
-  //   const sanggar = await this.prisma.sanggarTari.findUnique({ where: { id } });
-  //   if (!sanggar) {
-  //     throw new NotFoundException(`Sanggar Tari with ID ${id} not found`);
-  //   }
-  //   return this.prisma.sanggarTari.update({ where: { id }, data });
-  // }
-  // async remove(id: string): Promise<SanggarTari> {
-  //   try {
-  //     return await this.prisma.sanggarTari.delete({ where: { id } });
-  //   } catch (error) {
-  //     throw new NotFoundException(`Sanggar Tari with ID ${id} not found or could not be deleted.`);
-  //   }
-  // }
 }

@@ -42,16 +42,4 @@ export class SanggarTariController {
     }
   }
 
-  // --- Tambahkan kembali endpoint CRUD lainnya yang sudah ada ---
-  // @Post()
-  // async create(@Body() createSanggarTariDto: CreateSanggarTariDto) { /* ... */ }
-  // @Get()
-  // async findAll() { /* ... */ }
-  // @Get(':id')
-  // async findOne(@Param('id') id: string) { /* ... */ }
-  // @Put(':id')
-  // async update(@Param('id') id: string, @Body() updateSanggarTariDto: UpdateSanggarTariDto) { /* ... */ }
-  // @Delete(':id')
-  // @HttpCode(HttpStatus.NO_CONTENT)
-  // async remove(@Param('id') id: string) { /* ... */ }
 }
