@@ -5,7 +5,7 @@ import * as FormData from 'form-data';
 
 @Injectable()
 export class AiService {
-  private FASTAPI_URL = 'http://172.25.123.59:8000/predict/image'; // Change to FastAPI server
+  private FASTAPI_URL = 'http://0.0.0.0:8000/predict/image'; // Change to FastAPI server
 
   constructor(private readonly httpService: HttpService) {}
 

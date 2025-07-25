@@ -42,7 +42,6 @@ export class AuthService {
       ...dto,
       password: hash,
     });
-    console.log("hello")
     return { message: 'User created', user };
   }
 }
