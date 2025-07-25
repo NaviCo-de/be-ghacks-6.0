@@ -1,6 +1,5 @@
-// src/sanggar-tari/sanggar-tari.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { GetNearestSanggarDto } from './dto/get-nearest-sanggar.dto';
 import { SanggarTari } from '@prisma/client';
 
@@ -14,16 +13,18 @@ export class SanggarTariService {
     lat2: number,
     lon2: number,
   ): number {
-    const R = 6371; // Radius bumi dalam kilometer
+    const R = 6371;
     const dLat = (lat2 - lat1) * (Math.PI / 180);
     const dLon = (lon2 - lon1) * (Math.PI / 180);
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.cos(lat1 * (Math.PI / 180)) *
+        Math.cos(lat2 * (Math.PI / 180)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
-    return distance; // Jarak dalam kilometer
+    return distance;
   }
 
   async findNearestSanggar(
@@ -33,7 +34,7 @@ export class SanggarTariService {
 
     const sanggarList = await this.prisma.sanggarTari.findMany({
       where: {
-        latitude: { not: null },
+        langitude: { not: null },
         longitude: { not: null },
       },
     });
@@ -42,21 +43,21 @@ export class SanggarTariService {
       return [];
     }
 
-    const sanggarWithDistance = [];
+    const sanggarWithDistance: (SanggarTari & { distance: number })[] = [];
+
     for (const sanggar of sanggarList) {
-      if (sanggar.latitude !== null && sanggar.longitude !== null) {
+      if (sanggar.langitude !== null && sanggar.longitude !== null) {
         const distance = this.calculateHaversineDistance(
           userLat,
           userLon,
-          sanggar.latitude,
+          sanggar.langitude,
           sanggar.longitude,
         );
         sanggarWithDistance.push({ ...sanggar, distance });
       }
     }
 
-    sanggarWithDistance.sort((a, b) => (a.distance || 0) - (b.distance || 0));
-
+    sanggarWithDistance.sort((a, b) => a.distance - b.distance);
     return sanggarWithDistance.slice(0, limit);
   }
 }

@@ -2,7 +2,7 @@
 import { Module } from '@nestjs/common';
 import { SanggarTariService } from './sanggar-tari.service';
 import { SanggarTariController } from './sanggar-tari.controller';
-import { PrismaModule } from '../prisma/prisma.module'; // Sesuaikan path
+import { PrismaModule } from '../../prisma/prisma.module'; // Sesuaikan path
 
 @Module({
   imports: [PrismaModule],
